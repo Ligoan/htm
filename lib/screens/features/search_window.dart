@@ -17,6 +17,7 @@ class SearchWindow extends StatelessWidget {
       );
     } else {
       print("역사적 사실을 입력하지 않음.");
+      // 테스트
     }
   }
 
