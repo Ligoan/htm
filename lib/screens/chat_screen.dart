@@ -26,7 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
     // setup the model
     _model = GenerativeModel(
-      model: geminiModelPro,
+      model: geminiModelFlash,
       apiKey: apiKey,
     );
 
