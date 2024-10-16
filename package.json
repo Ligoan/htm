@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@genkit-ai/vertexai": "^0.5.16"
+  }
+}

@@ -41,3 +41,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# google-cloud-sdk
+/google-cloud-sdk
+/google-cloud-cli-linux-x86_64.tar.gz
+
+# firebase
+/firebase.json
+
+# node_modules
+/node_modules

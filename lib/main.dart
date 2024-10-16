@@ -3,6 +3,7 @@ import 'screens/chat_screen.dart';
 import 'screens/community_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/mypage_screen.dart';
+import 'screens/imagen3_test.dart';
 //import 'community_page.dart';  // Import CommunityPage
 //import 'mypage.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         '/community': (context) => const CommunityPage(),
         '/mypage': (context) => const MyPage(),
         '/aichat': (context) => const ChatScreen(),
+        '/imagen_test': (context) => const ImagenTestScreen(),
       },
     );
   }

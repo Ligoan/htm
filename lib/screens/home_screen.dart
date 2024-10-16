@@ -153,8 +153,9 @@ class HomeScreen extends StatelessWidget {
             // AI Chat 스크린으로 이동
             Navigator.pushNamed(context, '/aichat');
           } else if (index == 4) {
-            // MyPage 스크린으로 이동
-            Navigator.pushNamed(context, '/mypage');
+            // // MyPage 스크린으로 이동
+            // Navigator.pushNamed(context, '/mypage');
+            Navigator.pushNamed(context, '/imagen_test'); // Imagen3 테스트 페이지로 이동
           }
         },
       ),
