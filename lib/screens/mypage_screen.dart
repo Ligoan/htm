@@ -1,6 +1,34 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/status_card.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
+Future<void> listFiles() async {
+  try {
+    Reference folderRef = FirebaseStorage.instance.ref();
+    ListResult result = await folderRef.listAll();
+    List<String> names = result.items.map((Reference ref) => ref.name).toList();
+    print(names);
+
+    // Firebase Storage의 지정된 경로를 참조합니다.
+    // Reference storageRef = FirebaseStorage.instance.ref().child();
+
+    // // 해당 경로 내 모든 파일 및 폴더를 가져옵니다.
+    // ListResult result = await storageRef.listAll();
+
+    // // 폴더 목록 출력
+    // result.prefixes.forEach((Reference folderRef) {
+    //   print('Folder: ${folderRef.fullPath}');
+    // });
+
+    // // 파일 목록 출력
+    // result.items.forEach((Reference fileRef) {
+    //   print('File: ${fileRef.fullPath}');
+    // });
+  } catch (e) {
+    print('Error occurred while listing files: $e');
+  }
+}
 
 class MyPage extends StatelessWidget {
   const MyPage({super.key});
@@ -51,6 +79,15 @@ class MyPage extends StatelessWidget {
                       color: Colors.black,
                     ),
                     onPressed: () {
+                      // if (FirebaseAuth.instance.currentUser == null) {
+                      //   // 사용자가 로그인되어 있지 않음
+                      //   // 여기서 로그인 절차를 처리
+                      //   print("sss");
+                      // } else {
+                      // 사용자가 로그인되어 있음, 요청을 계속 진행
+                      listFiles();
+                      // }
+
                       // 프로필 이미지 변경 로직 추가
                     },
                   ),

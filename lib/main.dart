@@ -5,8 +5,14 @@ import 'screens/home_screen.dart';
 import 'screens/mypage_screen.dart';
 //import 'community_page.dart';  // Import CommunityPage
 //import 'mypage.dart';
+import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart'; // 이 파일은 Firebase 프로젝트 설정 시 자동으로 생성됨
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  if (Firebase.apps.isEmpty) {
+    await Firebase.initializeApp();
+  }
   runApp(const MyApp());
 }
 

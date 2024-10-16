@@ -1,5 +1,5 @@
 // Gemini API Key
-const apiKey = 'Your API key';
+const apiKey = 'your api key';
 
 // Gemini Model
 const String geminiModelPro = "gemini-1.5-pro-latest";
