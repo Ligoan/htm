@@ -21,41 +21,48 @@ class _ImagenTestScreenState extends State<ImagenTestScreen> {
       isLoading = true; // 로딩 상태 표시
     });
 
-    const String apiUrl =
-        'https://us-central1-aiplatform.googleapis.com/v1/projects/his-toon-maker/locations/us-central1/publishers/google/models/imagen-3.0-generate-001:predict';
+    const String apiUrl = 'your-apiUrl';
     const String accessToken =
-        'ya29.a0AcM612wh8JaO_FwqUCO6iiFPQ_W_kz57FULu7okDjkkyfv15Hjn098JYkp8Gt_8zV1uZITs7zYvBxpsvUrkYfJYWq6Y-upQhiTAASZtQxj6_w8Bgea8BSvBd3FDIvfocQck6M6pgDd6345mVB6u0VN_EZBIwLC9ZdG61JLyYlsSUOQaCgYKAbwSARISFQHGX2Mie_3wNH6QdnR3_3VygBPeuA0181'; // gcloud auth를 통해 얻은 OAuth 2.0 토큰
-
-    final response = await http.post(
-      Uri.parse(apiUrl),
-      headers: {
-        'Authorization': 'Bearer $accessToken',
-        'Content-Type': 'application/json',
-      },
-      body: jsonEncode({
-        "instances": [
-          {
-            // "prompt": prompt
-            "prompt":
-                "{'Topic': 'Portrait of the first Korean female aviator and independence activist.', 'Background': 'The background consists of a wide blue sky and a waving Korean flag, as if celebrating her achievements.', 'Situation': 'She is either sitting in the cockpit of an airplane or standing in front of a plane in a dignified pose.', 'Era': 'Retro style clothing and atmosphere from the early to mid-1900s when she was active.', 'Style': 'A style that combines realistic depiction with a touch of artistic flair. Vintage photo feel.', 'Other': 'She is wearing a flight suit, goggles, leather gloves, and a helmet. Her expression is confident and full of pride.  Short bobbed hair.', 'Atmosphere': 'Heroic, inspiring, and sublime atmosphere.'}" // 이미지 프롬프트
+        'your-token-id'; // gcloud auth를 통해 얻은 OAuth 2.0 토큰
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'Authorization': 'Bearer $accessToken',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "instances": [
+            {
+              // "prompt": prompt
+              "prompt": "A portrait of a cat wearing a suit and tie."
+            }
+          ],
+          "parameters": {
+            "sampleCount": 1 // 생성할 이미지 수
           }
-        ],
-        "parameters": {
-          "sampleCount": 1 // 생성할 이미지 수
-        }
-      }),
-    );
+        }),
+      );
 
-    if (response.statusCode == 200) {
-      final Map<String, dynamic> responseData = jsonDecode(response.body);
-      setState(() {
-        // 첫 번째 생성된 이미지의 base64 인코딩된 데이터를 가져옴
-        base64Image = responseData['predictions'][0]['bytesBase64Encoded'];
-        isLoading = false; // 로딩 완료
-      });
-    } else {
-      print('Failed to generate image: ${response.statusCode}');
-      print('Error: ${response.body}');
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+
+        // 응답 데이터 구조 검증
+        if (responseData.containsKey('predictions') &&
+            responseData['predictions'] != null &&
+            responseData['predictions'].isNotEmpty) {
+          setState(() {
+            base64Image = responseData['predictions'][0]['bytesBase64Encoded'];
+            isLoading = false; // 로딩 완료
+          });
+        } else {
+          throw Exception('Invalid response structure: ${response.body}');
+        }
+      } else {
+        throw Exception('Failed to generate image: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
       setState(() {
         isLoading = false; // 로딩 완료
       });
