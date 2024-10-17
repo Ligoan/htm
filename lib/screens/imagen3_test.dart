@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 class ImagenTestScreen extends StatefulWidget {
   const ImagenTestScreen({super.key});
@@ -10,20 +11,59 @@ class ImagenTestScreen extends StatefulWidget {
 }
 
 class _ImagenTestScreenState extends State<ImagenTestScreen> {
+  String apiUrl = ''; // Remote Config에서 가져올 API URL
+  String accessToken = ''; // Remote Config에서 가져올 토큰
   String? base64Image; // base64 인코딩된 이미지를 저장할 변수
   bool isLoading = false;
   // final TextEditingController _promptController =
   //     TextEditingController(); // 사용자 입력을 받을 텍스트 필드 컨트롤러
 
+  @override
+  void initState() {
+    super.initState();
+    fetchRemoteConfigValues(); // Remote Config 값 가져오기
+  }
+
+  Future<void> fetchRemoteConfigValues() async {
+    final remoteConfig = FirebaseRemoteConfig.instance;
+
+    try {
+      // Firebase Remote Config 기본 설정
+      await remoteConfig.setConfigSettings(
+        RemoteConfigSettings(
+          fetchTimeout: const Duration(seconds: 10),
+          minimumFetchInterval: const Duration(hours: 1),
+        ),
+      );
+
+      // Remote Config의 최신 값 가져오기
+      await remoteConfig.fetchAndActivate();
+
+      setState(() {
+        apiUrl = remoteConfig.getString('apiUrl'); // API URL 가져오기
+        accessToken =
+            remoteConfig.getString('accessToken'); // Access Token 가져오기
+        isLoading = false; // 로딩 완료
+      });
+    } catch (e) {
+      print('Failed to fetch remote config: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   // Vertex AI API 호출하여 이미지 생성
   Future<void> generateImage() async {
+    if (apiUrl.isEmpty || accessToken.isEmpty) {
+      print('Missing API URL or access token.');
+      return;
+    }
+
     setState(() {
       isLoading = true; // 로딩 상태 표시
     });
 
-    const String apiUrl = 'your-apiUrl';
-    const String accessToken =
-        'your-token-id'; // gcloud auth를 통해 얻은 OAuth 2.0 토큰
     try {
       final response = await http.post(
         Uri.parse(apiUrl),
@@ -35,7 +75,7 @@ class _ImagenTestScreenState extends State<ImagenTestScreen> {
           "instances": [
             {
               // "prompt": prompt
-              "prompt": "A portrait of a cat wearing a suit and tie."
+              "prompt": "A portrait of a dog wearing a suit and tie."
             }
           ],
           "parameters": {
