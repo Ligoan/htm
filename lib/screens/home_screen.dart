@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/screens/features/search_window.dart';
 
+import '../helper/global.dart';
 import '../widgets/event_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,6 +9,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mq = MediaQuery.sizeOf(context);
     return Scaffold(
       // AppBar
       appBar: AppBar(

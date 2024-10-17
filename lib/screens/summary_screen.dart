@@ -66,6 +66,7 @@ class SummaryScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       MarkdownBody(
+                        selectable: true,
                         data: snapshot.data!.text!,
                       ),
                       Row(
@@ -81,6 +82,12 @@ class SummaryScreen extends StatelessWidget {
                             onPressed: () {},
                           ),
                         ],
+                      ),
+                      ElevatedButton(
+                        child: const Text('Dalle Test'),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/dalle_test');
+                        },
                       ),
                     ],
                   ),

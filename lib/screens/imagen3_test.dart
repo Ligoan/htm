@@ -7,10 +7,10 @@ class ImagenTestScreen extends StatefulWidget {
   const ImagenTestScreen({super.key});
 
   @override
-  _ImagenTestScreenState createState() => _ImagenTestScreenState();
+  ImagenTestScreenState createState() => ImagenTestScreenState();
 }
 
-class _ImagenTestScreenState extends State<ImagenTestScreen> {
+class ImagenTestScreenState extends State<ImagenTestScreen> {
   String apiUrl = ''; // Remote Config에서 가져올 API URL
   String accessToken = ''; // Remote Config에서 가져올 토큰
   String? base64Image; // base64 인코딩된 이미지를 저장할 변수
@@ -58,6 +58,8 @@ class _ImagenTestScreenState extends State<ImagenTestScreen> {
     if (apiUrl.isEmpty || accessToken.isEmpty) {
       print('Missing API URL or access token.');
       return;
+    } else {
+      print(accessToken);
     }
 
     setState(() {

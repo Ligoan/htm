@@ -17,6 +17,20 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
 
+  # For using Lottie Animations
+  lottie: ^3.1.2
+
+  # For Accessing Storage Path
+  path_provider: ^2.1.0
+
+  # For Hive Database
+  hive: ^4.0.0-dev.2
+  isar_flutter_libs: ^4.0.0-dev.13
+
+  # For Custom Animation
+  flutter_animate: ^4.5.0
+  animated_text_kit: ^4.2.2
+
   google_generative_ai: ^0.4.6
   flutter_markdown: ^0.7.3+1
   wechat_assets_picker: ^9.2.1
@@ -29,6 +43,19 @@ dependencies:
   http: ^1.2.2
   firebase_remote_config: ^4.4.7
 
+  # For AI Image Generation
+  dart_openai: ^5.1.0
+  cached_network_image: ^3.4.1
+
+  # For State Management
+  get: ^4.6.6
+
+  # For Saving Image to Gallery
+  gallery_saver_updated: ^3.0.0
+
+  # For Sharing Image
+  share_plus: ^10.0.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -40,4 +67,5 @@ flutter:
   uses-material-design: true
 
   assets:
-  - assets/images/
+    - assets/images/
+    - assets/lottie/
