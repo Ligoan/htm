@@ -21,12 +21,13 @@ dependencies:
   flutter_markdown: ^0.7.3+1
   wechat_assets_picker: ^9.2.1
 
-  firebase_core: ^2.25.4
+  firebase_core: ^2.32.0
   firebase_auth: ^4.10.1
   cloud_firestore: ^4.15.4
   firebase_storage: ^11.4.4 
 
   http: ^1.2.2
+  firebase_remote_config: ^4.4.7
 
 dev_dependencies:
   flutter_test:
